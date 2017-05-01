@@ -1,0 +1,24 @@
+{
+  "name": "book-club",
+  "version": "1.0.0",
+  "description": "The purpose of this app is to supply a list of possible book club choices for readers.  It will be an agreed upon list and it will randomly generate a book choice each month for the book club.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jessHwood/book-club.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jessHwood/book-club/issues"
+  },
+  "homepage": "https://github.com/jessHwood/book-club#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
