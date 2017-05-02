@@ -6,7 +6,7 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	port = process.env.PORT || 3000;
 
-var db = require('./models/book');
+var db = require('./models');
 
 //configure cors for cross-origin requests
 app.use(cors());
@@ -15,9 +15,26 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
+// serve static files in public
+app.use(express.static('public'));
+
 //API endpoints
 app.get('/', function(req, res){
-	res.send("oh heeeyyyy");
+	res.sendFile(__dirname + "/public/index.html");
+});
+
+//get all books
+app.get('/api/books', function(req, res){
+	db.Book.find(function(err, data){
+		res.json(data);
+	});
+});
+
+//get one book
+app.get('/api/books/:id', function (req, res){
+	db.Book.findOne({_id: req.params.id}, function(err, data){
+		res.json(data);
+	});
 });
 
 //start server
