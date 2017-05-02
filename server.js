@@ -5,6 +5,7 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	mongoose = require('mongoose'),
 	port = process.env.PORT || 3000;
+	methodOverride = require('method-override');
 
 var db = require('./models');
 
@@ -27,6 +28,18 @@ app.get('/', function(req, res){
 app.get('/api/books', function(req, res){
 	db.Book.find(function(err, data){
 		res.json(data);
+	});
+});
+
+//post a book
+app.post('/api/books', function(req, res){
+	console.log('posting');
+	var book = new db.Book(req.body);
+
+	book.save(function(error){
+		if(error) res.json({message: 'could not create book bc' + error});
+
+		res.json({book: book});
 	});
 });
 
