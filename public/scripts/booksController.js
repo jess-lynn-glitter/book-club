@@ -1,7 +1,32 @@
+angular.module('BookApp', ['ngRoute'])
+	.controller('BooksController', BooksController)
+	.controller('BooksShowController', BooksController)
+	.config(bookRouter);
+
+bookRouter.$inject = ['$routeProvider', '$locationProvider'];
+
+function bookRouter($routeProvider, $locationProvider){
+	$routeProvider
+	.when('/', {
+		template: ''
+	})
+	.when('/about', {
+		template: "https://www.amazon.com/"
+	});
+	$locationProvider.html5Mode({
+		enabled: true,
+		requireBase: false
+	});
+}
 
 
-angular.module('BookApp', [])
-	.controller('BooksController', BooksController);
+///CONTROLLER
+BooksShowController.$inject = ['$scope', '$routeParams'];
+
+function BooksShowController($scope, $routeParams){
+	console.log($routeParams.id);
+	$scope.hello = "book show is working!";
+}
 
 BooksController.$inject = ['$http', '$scope'];
 console.log("controller working?");
@@ -15,10 +40,10 @@ function BooksController($http, $scope){
 	self.newBook = {};
 
 
-
+//ROUTES
 function addBook(){
     $http
-      .post('http://localhost:3000/api/books', self.newBook)
+      .post('/api/books', self.newBook)
       .then(function(response){
         getBooks();
     });
@@ -49,7 +74,7 @@ function getBooks(){
 		.get('http://localhost:3000/api/books')
 		.then(function(response){
 			console.log('getting all books');
-			console.log(response.data);
+			// console.log(response.data);
 			self.all= (response.data);
 		});
 }
